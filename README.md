@@ -85,8 +85,8 @@ earthquake-dashboard/
 
 ## Anggota Kelompok
 
-- Nama 1 (NIM)
-- Nama 2 (NIM)
-- Nama 3 (NIM)
-- Nama 4 (NIM)
-- Nama 5 (NIM)
+- Dinda Salma Septriani (103012300019)
+- Alexandra Yohana Daris Naibaho (103012330136)
+- Axel Davin Lazar Panenggak (103012330386)
+- Kayla Amalika (1301223302)
+- Naira Fayyaza (1301223222)
