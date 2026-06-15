@@ -444,6 +444,34 @@ body {
   .brand-sub { display: none; }
 }
 
+/* ---- BUBBLE CHART ---- */
+.chart-wrap--bubble { height: 360px; }
+
+.bubble-legend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.bubble-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+.bleg {
+  display: inline-block;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.bleg--low  { width: 8px;  height: 8px;  background: rgba(0,212,170,0.7); }
+.bleg--mid  { width: 12px; height: 12px; background: rgba(245,158,11,0.7); }
+.bleg--high { width: 18px; height: 18px; background: rgba(239,68,68,0.8); }
+.bubble-legend-sep  { color: var(--border-hi); }
+.bubble-legend-note { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
+
 /* ---- REDUCED MOTION ---- */
 @media (prefers-reduced-motion: reduce) {
   *, .kpi-card, .chart-card, .table-section, .data-source {

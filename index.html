@@ -150,6 +150,27 @@
         </div>
       </div>
 
+      <!-- Chart 5: Bubble - Peta Persebaran Gempa -->
+      <div class="chart-card chart-card--wide">
+        <div class="chart-header">
+          <div>
+            <h2 class="chart-title">Peta Persebaran Gempa Indonesia</h2>
+            <p class="chart-desc">Posisi koordinat gempa (lon/lat) — ukuran bubble proporsional terhadap magnitudo</p>
+          </div>
+          <div class="chart-badge">Bubble Chart</div>
+        </div>
+        <div class="bubble-legend">
+          <span class="bubble-legend-item"><span class="bleg bleg--low"></span> &lt; 3.0</span>
+          <span class="bubble-legend-item"><span class="bleg bleg--mid"></span> 3.0 – 4.9</span>
+          <span class="bubble-legend-item"><span class="bleg bleg--high"></span> ≥ 5.0</span>
+          <span class="bubble-legend-sep">·</span>
+          <span class="bubble-legend-note">Ukuran bubble = magnitudo</span>
+        </div>
+        <div class="chart-wrap chart-wrap--bubble">
+          <canvas id="chart-bubble"></canvas>
+        </div>
+      </div>
+
     </div>
 
     <!-- DATA TABLE -->

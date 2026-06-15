@@ -120,6 +120,7 @@ function renderAll() {
   renderRegionChart(data);
   renderDepthChart(data);
   renderScatterChart(data);
+  renderBubbleChart(data);
   renderTable(data);
 }
 
@@ -433,6 +434,101 @@ function renderScatterChart(data) {
             color:   "#556080",
             font:    { size: 11 },
           },
+        },
+      },
+    },
+  });
+}
+
+// ---- CHART 5: BUBBLE — Peta Persebaran ----
+function renderBubbleChart(data) {
+  destroyChart("bubble");
+
+  // Sampel maks 600 titik
+  const sample = data.length > 600
+    ? [...data].sort(() => 0.5 - Math.random()).slice(0, 600)
+    : data;
+
+  // Pisah 3 dataset berdasarkan magnitudo (agar warna berbeda di tooltip)
+  const low  = sample.filter(e => e.mag < 3);
+  const mid  = sample.filter(e => e.mag >= 3 && e.mag < 5);
+  const high = sample.filter(e => e.mag >= 5);
+
+  const toPoint = e => ({
+    x: e.lon,
+    y: e.lat,
+    r: Math.max(2, (e.mag - 1) * 2.2), // radius proporsional magnitudo
+    mag: e.mag,
+    place: e.place,
+    depth: e.depth,
+  });
+
+  const ctx = document.getElementById("chart-bubble").getContext("2d");
+  charts.bubble = new Chart(ctx, {
+    type: "bubble",
+    data: {
+      datasets: [
+        {
+          label: "< 3.0",
+          data: low.map(toPoint),
+          backgroundColor: "rgba(0,212,170,0.5)",
+          borderColor:     "rgba(0,212,170,0.8)",
+          borderWidth: 0.5,
+        },
+        {
+          label: "3.0 – 4.9",
+          data: mid.map(toPoint),
+          backgroundColor: "rgba(245,158,11,0.55)",
+          borderColor:     "rgba(245,158,11,0.85)",
+          borderWidth: 0.5,
+        },
+        {
+          label: "≥ 5.0",
+          data: high.map(toPoint),
+          backgroundColor: "rgba(239,68,68,0.65)",
+          borderColor:     "rgba(239,68,68,0.95)",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 900, easing: "easeOutQuart" },
+      plugins: {
+        legend: {
+          display: false, // pakai custom legend di HTML
+        },
+        tooltip: {
+          backgroundColor: COLORS.tooltip,
+          borderColor:     COLORS.accent,
+          borderWidth:     1,
+          titleColor:      "#E8F0FE",
+          bodyColor:       "#8899BB",
+          padding:         10,
+          cornerRadius:    8,
+          callbacks: {
+            title: items => items[0].raw.place ?? "Indonesia",
+            label: item  => [
+              ` Magnitudo : ${item.raw.mag.toFixed(1)}`,
+              ` Kedalaman : ${item.raw.depth.toFixed(1)} km`,
+              ` Lon: ${item.raw.x.toFixed(2)}°  Lat: ${item.raw.y.toFixed(2)}°`,
+            ],
+          },
+        },
+      },
+      scales: {
+        x: {
+          min: 95, max: 141,
+          grid:  { color: COLORS.grid },
+          ticks: { color: "#556080", font: { size: 10 }, callback: v => `${v}°E` },
+          title: { display: true, text: "Bujur (Longitude)", color: "#556080", font: { size: 11 } },
+        },
+        y: {
+          min: -11, max: 6,
+          grid:  { color: COLORS.grid },
+          ticks: { color: "#556080", font: { size: 10 }, callback: v => `${v}°` },
+          title: { display: true, text: "Lintang (Latitude)", color: "#556080", font: { size: 11 } },
         },
       },
     },
