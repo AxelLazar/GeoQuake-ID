@@ -2,8 +2,6 @@
 
 > Visualisasi data gempa bumi real-time di wilayah Indonesia menggunakan data dari USGS Earthquake Hazards Program.
 
-🌐 **Demo:** https://geoquake-id.vercel.app *(ganti dengan URL Vercel kamu setelah deploy)*
-
 ---
 
 ## Isi Dashboard
