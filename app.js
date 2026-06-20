@@ -119,7 +119,6 @@ function renderAll() {
   renderTrendChart(data);
   renderRegionChart(data);
   renderDepthChart(data);
-  renderScatterChart(data);
   renderBubbleChart(data);
   renderTable(data);
 }
@@ -374,73 +373,7 @@ function renderDepthChart(data) {
   }).join("");
 }
 
-// ---- CHART 4: SCATTER — Magnitudo vs Kedalaman ----
-function renderScatterChart(data) {
-  destroyChart("scatter");
-
-  // Sampel maks 500 titik agar canvas tidak berat
-  const sample = data.length > 500
-    ? data.sort(() => 0.5 - Math.random()).slice(0, 500)
-    : data;
-
-  const points = sample.map(e => ({ x: e.depth, y: e.mag }));
-
-  const ctx = document.getElementById("chart-scatter").getContext("2d");
-  charts.scatter = new Chart(ctx, {
-    type: "scatter",
-    data: {
-      datasets: [{
-        label: "Gempa",
-        data: points,
-        backgroundColor: points.map(p =>
-          p.y >= 5  ? "rgba(239,68,68,0.7)"  :
-          p.y >= 3  ? "rgba(245,158,11,0.6)" :
-                      "rgba(0,212,170,0.4)"
-        ),
-        pointRadius: 3,
-        pointHoverRadius: 6,
-      }],
-    },
-    options: {
-      ...baseOptions,
-      animation: { duration: 700 },
-      plugins: {
-        ...baseOptions.plugins,
-        tooltip: {
-          ...baseOptions.plugins.tooltip,
-          callbacks: {
-            label: item => [
-              ` Kedalaman: ${item.raw.x.toFixed(1)} km`,
-              ` Magnitudo: ${item.raw.y.toFixed(1)}`,
-            ],
-          },
-        },
-      },
-      scales: {
-        x: {
-          ...baseOptions.scales.x,
-          title: {
-            display: true,
-            text:    "Kedalaman (km)",
-            color:   "#556080",
-            font:    { size: 11 },
-          },
-        },
-        y: {
-          ...baseOptions.scales.y,
-          title: {
-            display: true,
-            text:    "Magnitudo",
-            color:   "#556080",
-            font:    { size: 11 },
-          },
-        },
-      },
-    },
-  });
-}
-
-// ---- CHART 5: BUBBLE — Peta Persebaran ----
+// ---- CHART 4: BUBBLE — Peta Persebaran ----
 function renderBubbleChart(data) {
   destroyChart("bubble");
 
